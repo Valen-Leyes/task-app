@@ -1,0 +1,16 @@
+{
+  "name": "Mis Tareas",
+  "short_name": "Tareas",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#fdf2f8",
+  "theme_color": "#ec4899",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/440/440715.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
