@@ -5,81 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Tareas</title>
     <link rel="manifest" href="manifest-tareas.json">
-    <style>
-        :root {
-            --bg-color: #fdf2f8;
-            --card-bg: #ffffff;
-            --primary: #ec4899;
-            --primary-dark: #be185d;
-            --text: #1e293b;
-            --gray: #64748b;
-        }
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .container {
-            width: 100%;
-            max-width: 380px;
-        }
-        h1 { font-size: 1.5rem; text-align: center; margin-bottom: 5px; }
-        .subtitle { font-size: 0.85rem; text-align: center; color: var(--gray); margin-bottom: 20px; }
-        .card {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04);
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .timer-display {
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin: 15px 0;
-            font-variant-numeric: tabular-nums;
-        }
-        .btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            width: 100%;
-            font-weight: bold;
-            margin-bottom: 10px;
-            transition: background-color 0.2s;
-        }
-        .btn:hidden { display: none; }
-        .btn-secondary {
-            background-color: #e2e8f0;
-            color: var(--text);
-        }
-        .btn-group {
-            display: flex;
-            gap: 10px;
-        }
-        .strategy-box {
-            font-size: 0.9rem;
-            color: var(--gray);
-            line-height: 1.4;
-            text-align: left;
-            padding: 15px;
-            background: #fff;
-            border-radius: 15px;
-            border-left: 4px solid var(--primary);
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -105,62 +31,6 @@
         </div>
     </div>
 
-    <script>
-        let timerInterval;
-        let timeLeft = 600; // 10 minutos por defecto en segundos
-        let isRunning = false;
-
-        const display = document.getElementById('timer');
-        const btnStart = document.getElementById('btn-start');
-        const btn2min = document.getElementById('btn-2min');
-        const btnReset = document.getElementById('btn-reset');
-
-        function updateDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        function startTimer() {
-            if (isRunning) {
-                clearInterval(timerInterval);
-                btnStart.textContent = 'Reanudar';
-                isRunning = false;
-            } else {
-                isRunning = true;
-                btnStart.textContent = 'Pausar';
-                timerInterval = setInterval(() => {
-                    timeLeft--;
-                    updateDisplay();
-
-                    if (timeLeft <= 0) {
-                        clearInterval(timerInterval);
-                        isRunning = false;
-                        btnStart.textContent = '¡Completado! 🎉';
-                        alert('¡Buen trabajo! Lograste romper la inercia inicial.');
-                        resetTimer(600);
-                    }
-                }, 1000);
-            }
-        }
-
-        function resetTimer(seconds = 600) {
-            clearInterval(timerInterval);
-            isRunning = false;
-            timeLeft = seconds;
-            btnStart.textContent = seconds === 120 ? 'Iniciar Micro-Enfoque (2 min) ⚡' : 'Iniciar Enfoque (10 min) ⏱️';
-            updateDisplay();
-        }
-
-        btnStart.addEventListener('click', startTimer);
-        btn2min.addEventListener('click', () => resetTimer(120));
-        btnReset.addEventListener('click', () => resetTimer(600));
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw-tareas.js').catch(err => console.log(err));
-        }
-
-        updateDisplay();
-    </script>
+    <script src="js/app.js"></script>
 </body>
 </html>
